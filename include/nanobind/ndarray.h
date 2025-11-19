@@ -569,6 +569,12 @@ template <typename... Args> struct type_caster<ndarray<Args...>> {
                                      flags & (uint8_t) cast_flags::convert,
                                      cleanup));
 
+        if (value.is_valid()) { return true; }
+
+        value = Value(ndarray_extra_import(src.ptr(), &config,
+                                     flags & (uint8_t) cast_flags::convert,
+                                     cleanup, (Config*)nullptr));
+
         return value.is_valid();
     }
 

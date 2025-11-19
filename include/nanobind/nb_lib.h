@@ -480,6 +480,15 @@ NB_CORE ndarray_handle *ndarray_import(PyObject *o,
                                        bool convert,
                                        cleanup_list *cleanup) noexcept;
 
+// Hook for additional ndarray implicit conversion.
+NB_INLINE ndarray_handle *ndarray_extra_import(PyObject *o,
+                                               const ndarray_config *c,
+                                               bool convert,
+                                               cleanup_list *cleanup,
+                                               void*) noexcept {
+  return {};
+}
+
 // Describe a local ndarray object using a DLPack capsule
 NB_CORE ndarray_handle *ndarray_create(void *data, size_t ndim,
                                        const size_t *shape, PyObject *owner,
